@@ -1,7 +1,6 @@
 package logging
 
 import (
-	"fmt"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -22,7 +21,7 @@ type Config struct {
 
 func (c *Config) CreateLogger(pluginName string, invokeId string) *zap.SugaredLogger {
 	config := zap.NewProductionConfig()
-	timeFormat := "2006-01-02T15:04:05.000Z0700"
+	timeFormat := "2006-01-02 15:04:05.000"
 
 	if c.TimeFormat != "" {
 		timeFormat = c.TimeFormat
@@ -54,6 +53,5 @@ func (c *Config) CreateLogger(pluginName string, invokeId string) *zap.SugaredLo
 
 	logger, _ := config.Build()
 	sugar := logger.Sugar()
-	sugar = sugar.With(zap.String("prefix", fmt.Sprintf("[ %s ] - [ %s ] >> ", pluginName, invokeId)))
 	return sugar
 }
