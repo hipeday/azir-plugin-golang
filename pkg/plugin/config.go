@@ -16,12 +16,9 @@ type Config interface {
 }
 
 type ConfigPlugin struct {
+	Config
 	conf   interface{}
 	logger *zap.SugaredLogger
-}
-
-func (c *ConfigPlugin) Run(args []string) (string, error) {
-	panic("implement me")
 }
 
 func (c *ConfigPlugin) ParseConfig(args []string) (interface{}, error) {
