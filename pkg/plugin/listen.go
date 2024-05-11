@@ -2,6 +2,7 @@ package plugin
 
 import (
 	"fmt"
+	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/notify"
 	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/properties"
 	"log"
 	"net"
@@ -80,8 +81,9 @@ func (l *ListenPlugin) listenSocket() {
 
 func (l *ListenPlugin) handleConnection(conn net.Conn) {
 	var (
-		property = l.GetConfig().(properties.DefaultProperty)
-		logger   = property.Logger.CreateLogger(property.Name, property.InvokeId)
+		property     = l.GetConfig().(properties.DefaultProperty)
+		logger       = property.Logger.CreateLogger(property.Name, property.InvokeId)
+		notification = property.Notification
 	)
 
 	defer func(conn net.Conn) {
@@ -98,5 +100,18 @@ func (l *ListenPlugin) handleConnection(conn net.Conn) {
 		return
 	}
 
-	logger.Infof("[收到消息] >> %s", string(buf[:n]))
+	logger.Infof("Received: %s", string(buf[:n]))
+
+	if notification != nil && notification.Enabled {
+		notifier := notify.Registry.GetNotification(notification.Type)
+		notifier.SetLogger(logger)
+		err = notifier.Push(string(buf[:n]), notification)
+		if err != nil {
+			logger.Fatalf("Error sending notification: %v", err)
+		} else {
+			logger.Infof("Notification sent")
+		}
+	} else {
+		logger.Infof("Notification not enabled")
+	}
 }

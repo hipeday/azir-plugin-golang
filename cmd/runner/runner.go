@@ -2,6 +2,7 @@ package runner
 
 import (
 	"github.com/ideal-rucksack/workflow-glolang-plugin/cmd/command"
+	_ "github.com/ideal-rucksack/workflow-glolang-plugin/cmd/notification"
 	"log"
 	"os"
 )
