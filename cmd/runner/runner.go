@@ -18,10 +18,8 @@ func Run() {
 
 	log.Printf("Running command: %s", cmd)
 
-	result, err := register.RunCommand(cmd, args)
+	err := register.RunCommand(cmd, args)
 	if err != nil {
 		log.Fatalf("Error running command: %v", err)
 	}
-
-	log.Printf("Result: %s", result)
 }

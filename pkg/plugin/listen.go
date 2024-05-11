@@ -7,7 +7,6 @@ import (
 	"net"
 	"os"
 	"path/filepath"
-	"time"
 )
 
 type Listen interface {
@@ -99,11 +98,5 @@ func (l *ListenPlugin) handleConnection(conn net.Conn) {
 		return
 	}
 
-	logger.Infof("[收到消息] - [%s] >> %s", time.Now().Format("2006-01-02 15:04:05.000000"), string(buf[:n]))
-
-	_, err = conn.Write([]byte("这是插件执行结果🌹"))
-	if err != nil {
-		logger.Fatalf("Failed to send message: %v", err)
-	}
-	logger.Infof("[回复消息] - [%s] >> %s", time.Now().Format("2006-01-02 15:04:05.000000"), "这是插件执行结果🌹")
+	logger.Infof("[收到消息] >> %s", string(buf[:n]))
 }
