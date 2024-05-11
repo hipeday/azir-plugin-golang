@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/workflow-glolang-plugin.iml" filepath="$PROJECT_DIR$/.idea/workflow-glolang-plugin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/azir-plugin-golang.iml" filepath="$PROJECT_DIR$/.idea/azir-plugin-golang.iml" />
     </modules>
   </component>
 </project>

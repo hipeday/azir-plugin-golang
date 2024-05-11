@@ -2,8 +2,8 @@ package plugin
 
 import (
 	"fmt"
-	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/notify"
-	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/properties"
+	"github.com/hipeday/azir-plugin-golang/pkg/notify"
+	"github.com/hipeday/azir-plugin-golang/pkg/properties"
 	"log"
 	"net"
 	"os"

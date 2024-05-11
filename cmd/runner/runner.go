@@ -1,8 +1,8 @@
 package runner
 
 import (
-	"github.com/ideal-rucksack/workflow-glolang-plugin/cmd/command"
-	_ "github.com/ideal-rucksack/workflow-glolang-plugin/cmd/notification"
+	"github.com/hipeday/azir-plugin-golang/cmd/command"
+	_ "github.com/hipeday/azir-plugin-golang/cmd/notification"
 	"log"
 	"os"
 )

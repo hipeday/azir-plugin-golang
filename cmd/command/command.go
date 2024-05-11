@@ -1,6 +1,6 @@
 package command
 
-import "github.com/ideal-rucksack/workflow-glolang-plugin/pkg/plugin"
+import "github.com/hipeday/azir-plugin-golang/pkg/plugin"
 
 var (
 	Registry plugin.CommandRegistry

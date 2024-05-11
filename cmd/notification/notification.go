@@ -1,7 +1,7 @@
 package notification
 
 import (
-	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/notify"
+	"github.com/hipeday/azir-plugin-golang/pkg/notify"
 )
 
 func init() {

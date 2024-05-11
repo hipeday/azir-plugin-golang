@@ -2,7 +2,7 @@ package notify
 
 import (
 	"encoding/json"
-	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/properties"
+	"github.com/hipeday/azir-plugin-golang/pkg/properties"
 	"net"
 )
 

@@ -3,7 +3,7 @@ package plugin
 import (
 	"encoding/json"
 	"flag"
-	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/properties"
+	"github.com/hipeday/azir-plugin-golang/pkg/properties"
 	"go.uber.org/zap"
 	"log"
 )

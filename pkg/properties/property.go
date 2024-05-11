@@ -1,7 +1,7 @@
 package properties
 
 import (
-	"github.com/ideal-rucksack/workflow-glolang-plugin/pkg/logging"
+	"github.com/hipeday/azir-plugin-golang/pkg/logging"
 )
 
 type NotifyType string

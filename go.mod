@@ -1,4 +1,4 @@
-module github.com/ideal-rucksack/workflow-glolang-plugin
+module github.com/hipeday/azir-plugin-golang
 
 go 1.22.1
 
