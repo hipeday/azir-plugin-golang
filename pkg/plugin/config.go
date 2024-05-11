@@ -10,7 +10,7 @@ import (
 
 type Config interface {
 	Plugin
-	ParseConfig(args []string) (interface{}, error)
+	ParseConfig(command string, args []string) (interface{}, error)
 	GetConfig() interface{}
 	GetLogger() *zap.SugaredLogger
 }
@@ -21,13 +21,13 @@ type ConfigPlugin struct {
 	logger *zap.SugaredLogger
 }
 
-func (c *ConfigPlugin) ParseConfig(args []string) (interface{}, error) {
+func (c *ConfigPlugin) ParseConfig(command string, args []string) (interface{}, error) {
 	var (
 		property properties.DefaultProperty
 		err      error
 	)
 
-	runCommand := flag.NewFlagSet("run", flag.ExitOnError)
+	runCommand := flag.NewFlagSet(command, flag.ExitOnError)
 	configArg := runCommand.String("c", "", "Configuration JSON")
 	err = runCommand.Parse(args)
 	if err != nil {
