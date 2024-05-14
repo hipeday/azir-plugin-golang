@@ -24,7 +24,7 @@ func (l *ListenPlugin) Run(args []string) (interface{}, error) {
 		err error
 	)
 
-	_, err = l.ParseConfig(args)
+	_, err = l.ParseConfig("run", args)
 
 	if err != nil {
 		log.Fatalf("Error parsing config: %v", err)
