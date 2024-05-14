@@ -1,9 +1,11 @@
 package plugin
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/hipeday/azir-plugin-golang/pkg/notify"
 	"github.com/hipeday/azir-plugin-golang/pkg/properties"
+	"go.uber.org/zap"
 	"log"
 	"net"
 	"os"
@@ -21,28 +23,47 @@ type ListenPlugin struct {
 
 func (l *ListenPlugin) Run(args []string) (interface{}, error) {
 	var (
-		err error
+		err     error
+		runConf string
 	)
 
-	_, err = l.ParseConfig("run", args)
+	var commands = []CommandParam{
+		{
+			Name:    "c",
+			Default: "",
+			Usage:   "Start plug in configuration",
+			Value:   runConf,
+		},
+	}
+
+	err = l.ParseConfig("run", commands, args)
 
 	if err != nil {
 		log.Fatalf("Error parsing config: %v", err)
 	}
 
-	l.listenSocket()
+	l.listenSocket(runConf, args)
 
 	return "", nil
 }
 
-func (l *ListenPlugin) listenSocket() {
+func (l *ListenPlugin) listenSocket(runConf string, args []string) {
 	var (
-		property   = l.GetConfig().(properties.DefaultProperty)
+		property   properties.DefaultProperty
+		socketHome string
+		socketPath string
+		err        error
+		logger     *zap.SugaredLogger
+	)
+
+	err = json.Unmarshal([]byte(runConf), &property)
+	if err != nil {
+		log.Fatalf("Error parsing run config: %v", err)
+	} else {
+		logger = l.GetLogger(args)
 		socketHome = filepath.Join(property.Home, property.Name, "socks")
 		socketPath = filepath.Join(socketHome, "plugin.sock")
-		err        error
-		logger     = property.Logger.CreateLogger(property.Name, property.InvokeId)
-	)
+	}
 
 	err = os.MkdirAll(socketHome, os.ModePerm)
 	if err != nil {
@@ -75,16 +96,11 @@ func (l *ListenPlugin) listenSocket() {
 		if err != nil {
 			logger.Fatalf("Accept error: %v", err)
 		}
-		l.handleConnection(conn)
+		l.handleConnection(conn, logger, property.Notification)
 	}
 }
 
-func (l *ListenPlugin) handleConnection(conn net.Conn) {
-	var (
-		property     = l.GetConfig().(properties.DefaultProperty)
-		logger       = property.Logger.CreateLogger(property.Name, property.InvokeId)
-		notification = property.Notification
-	)
+func (l *ListenPlugin) handleConnection(conn net.Conn, logger *zap.SugaredLogger, notification *properties.Notification) {
 
 	defer func(conn net.Conn) {
 		err := conn.Close()

@@ -19,7 +19,7 @@ type Config struct {
 	TimeFormat string `json:"time_format"`
 }
 
-func (c *Config) CreateLogger(pluginName string, invokeId string) *zap.SugaredLogger {
+func (c *Config) CreateLogger() *zap.SugaredLogger {
 	config := zap.NewProductionConfig()
 	timeFormat := "2006-01-02 15:04:05.000"
 
